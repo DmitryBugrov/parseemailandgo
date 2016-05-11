@@ -1,6 +1,12 @@
 {
-	"Address":"core1:110",
-	"User":"shutdown@tula.quadra.ru",
-	"Pass":"qwe8Vcx"
+	"Address":"10.101.0.91:110",
+	"User":"shutdown all servers/Tula/Enterprise",
+	"Pass":"qwe8Vcx",
+	"Rules":[
+		{"Subject":".*",
+		"Action":"run something1"},
+		{"Subject":"?*",
+		"Action":"run something2"}
+		]
 
 }

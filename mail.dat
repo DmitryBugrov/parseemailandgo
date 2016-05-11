@@ -1,0 +1,89 @@
+Received: from mx1.quadra.ru ([10.101.5.9])
+          by core1.tula.domino (IBM Domino Release 9.0.1FP3)
+          with ESMTP id 2016051123320536-11 ;
+          Wed, 11 May 2016 23:32:05 +0300 
+Received: from localhost (unknown [127.0.1.1])
+	by mx1.quadra.ru (Postfix) with SMTP id 3F4D544A2
+	for <shutdown@tula.quadra.ru>; Wed, 11 May 2016 23:31:35 +0300 (MSK)
+X-AV-Checked: Wed May 11 23:31:35 2016 Ok
+X-Spam-Checker-Version: SpamAssassin 3.4.1 (2015-04-28) on mx
+X-Spam-Level: 
+X-Spam-Status: No, score=-2.0 required=5.5 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FROM,HTML_MESSAGE,RCVD_IN_DNSWL_NONE,
+	RCVD_IN_MSPIKE_H3,RCVD_IN_MSPIKE_WL autolearn=ham autolearn_force=no
+	version=3.4.1
+Received: from mx (unknown [127.0.1.1])
+	by mx1.quadra.ru (Postfix) with ESMTP id D60D2449C
+	for <shutdown@tula.quadra.ru>; Wed, 11 May 2016 23:31:34 +0300 (MSK)
+X-Virus-Scanned: amavisd-new at quadra.ru
+Authentication-Results: mx1.quadra.ru (amavisd-new); dkim=pass (2048-bit key)
+	header.d=gmail.com
+Received: from mx1.quadra.ru ([127.0.1.1])
+	by mx (mx1.quadra.ru [127.0.1.1]) (amavisd-new, port 10024) with ESMTP
+	id b8CKQmU0Y249 for <shutdown@tula.quadra.ru>;
+	Wed, 11 May 2016 23:31:34 +0300 (MSK)
+Received: from mail-yw0-f173.google.com (mail-yw0-f173.google.com [209.85.161.173])
+	by mx1.quadra.ru (Postfix) with ESMTP id EFF064495
+	for <shutdown@tula.quadra.ru>; Wed, 11 May 2016 23:31:17 +0300 (MSK)
+Received: by mail-yw0-f173.google.com with SMTP id g133so54295715ywb.2
+        for <shutdown@tula.quadra.ru>; Wed, 11 May 2016 13:31:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20120113;
+        h=mime-version:date:message-id:subject:from:to;
+        bh=1j+6ZvvKP8BMF8qSgV1eTopnIGPwwz1g/7nJqN/3tkI=;
+        b=X3lD7K0LzOU5RfWiEoTtS2zD6v4aGeWEKnr7SxrHYVKgDmkpcaeeOIex7hCa8XLgzI
+         W5316owS4DWexuoe5seVz0mlTraMgsiYM0LpTstCY6Cc3SGsRKtIoH0mqA/QfubqH5Q9
+         TxKEeR6Nlo3+B5igCpK6isG1E+F7JBzCx1OhFI0pGGlcFZnv1q/k1cOdTEdl88Hz8iLV
+         AcOg0UcOBepkIR4XAPaCHr8dKY+A2OLhCwO6t4XSfHHz07ztZZTT9H6xZGuHaYN30JXQ
+         GbeeXZ0Iswcxl7K7DazBI0BojQQS4yeeVPht7vktgmx/axv/k7eS2Bt6gjfWSEzVzHiN
+         50sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20130820;
+        h=x-gm-message-state:mime-version:date:message-id:subject:from:to;
+        bh=1j+6ZvvKP8BMF8qSgV1eTopnIGPwwz1g/7nJqN/3tkI=;
+        b=CogpiyvCxX/19taVfix2Z6KllzbkAkiBcYvFUrFiTWbT39FbyRmMx9fCvg8O4rh0ED
+         Pjc9fqvGV5rwi7ODGIpvbeyqGKpVBD6Mk+lqlrQXLzefX78cA4VzHXoffziZeX/sjyKC
+         73kKz2c8Sf6GCqKvgdtQYIVKBSLJ/ptrCuSGkk5C8gbLjrtW58X48e24qKTxxf4huCQM
+         i72wALjOFnrMTlK1kkQPqABXI/DMZsWYVq6sbRjCHFJFUE0KLE1uiazCBqjX0Cb72HyS
+         lu5aP4QRzSQwPOR6JuEoPYqWuRUPcBnx04vj/3RJAyn921K6hl/UjbZET1A/uDhXHDJF
+         s+Fw==
+X-Gm-Message-State: AOPr4FXGEbPhLjiLWwjTceVSIZPISjTLcLfOSgjUham4DQwqTjtKuoitOt0tjj6cMeQrzqwFFjK5dEeQmj/8wg==
+MIME-Version: 1.0
+X-Received: by 10.37.210.132 with SMTP id j126mr2694574ybg.52.1462998626323;
+ Wed, 11 May 2016 13:30:26 -0700 (PDT)
+Received: by 10.13.213.142 with HTTP; Wed, 11 May 2016 13:30:26 -0700 (PDT)
+Date: Wed, 11 May 2016 23:30:26 +0300
+Message-ID: <CAHH5NFRj6XkDerGio7Wn3q-28iO8Y85pm_8fxdJoHvux8wmLSA@mail.gmail.com>
+Subject: ddddddfdsfsfsvxvsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+From: =?UTF-8?B?0JTQvNC40YLRgNC40Lkg0JHRg9Cz0YDQvtCy?= <dmitrybugrov@gmail.com>
+To: shutdown@tula.quadra.ru
+X-MIMETrack: Itemize by SMTP Server on CORE1/Tula/Enterprise(Release 9.0.1FP3|January
+  12, 2015) at 11.05.2016 23:32:05,
+	Serialize by POP3 Server on CORE1/Tula/Enterprise(Release 9.0.1FP3|January
+  12, 2015) at 11.05.2016 23:48:45,
+	Serialize complete at 11.05.2016 23:48:45
+Content-Type: multipart/alternative; boundary=94eb2c065a506dd589053296e9a5
+
+--94eb2c065a506dd589053296e9a5
+Content-Type: text/plain; charset=UTF-8
+
+dssssssssssssssssssss,,,,,,,,,,,,,
+sf
+sssssssssssssssf
+
+sf
+scv
+v
+
+v
+v
+vv
+..
+ddd
+
+--94eb2c065a506dd589053296e9a5
+Content-Type: text/html; charset=UTF-8
+
+<div dir="ltr">dssssssssssssssssssss,,,,,,,,,,,,,<div>sf</div><div>sssssssssssssssf</div><div><br></div><div>sf</div><div>scv</div><div>v</div><div><br></div><div>v</div><div>v</div><div>vv</div><div>.</div><div>ddd</div></div>
+
+--94eb2c065a506dd589053296e9a5--
