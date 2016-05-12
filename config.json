@@ -4,11 +4,12 @@
 	"Pass":"qwe8Vcx",
 	"Rules":[
 		{"Subject":"(.*)",
-		"Action":"run something1"},
+		"Action":"ls"},
 		{"Subject":"oooo",
-		"Action":"run something2"},
-		{"Body":".*",
-		"Action":"run something3"}
+		"Action":"ls"},
+		{"Body":"sssssssssssssss",
+		"Subject":"1",
+		"Action":"ls -l"}
 		]
 
 }

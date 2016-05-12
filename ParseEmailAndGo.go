@@ -2,11 +2,14 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
+	"os/exec"
 	"regexp"
+	"strings"
 
 	"github.com/DmitryBugrov/log"
 	"github.com/taknb2nch/go-pop3"
@@ -32,18 +35,48 @@ type Rule struct {
 }
 
 func main() {
-	log.Init(log.LogLevelTrace, true, true, true)
+	log.Init(log.LogLevelInfo, true, true, true)
 	log.Print(log.LogLevelTrace, "Starting...")
 	if err := c.load(); err != nil {
 		log.Print(log.LogLevelError, err)
 		panic(0)
 	}
-	fmt.Println(c.Rules[1].Action)
-	//	ReciveMail()
-	data, err := ReadFromFile(TestFileName)
-	if err == nil {
-		CheckRegExp(data)
-	} else {
+
+	err := ReciveMail()
+
+	if err != nil {
+		log.Print(log.LogLevelError, err)
+	}
+
+	//	data, err := ReadFromFile(TestFileName)
+	//	if err == nil {
+	//		CheckRegExp(data)
+	//	} else {
+	//		log.Print(log.LogLevelError, err)
+	//	}
+}
+
+func Action(cmdName string) {
+	cmdSlice := strings.Split(cmdName, " ")
+	cmd := exec.Command(cmdSlice[0], cmdSlice[1:]...)
+	stdout, err := cmd.StdoutPipe()
+
+	scanner := bufio.NewScanner(stdout)
+	go func() {
+		for scanner.Scan() {
+			fmt.Printf("%s\n", scanner.Text())
+		}
+	}()
+
+	err = cmd.Start()
+	if err != nil {
+		log.Print(log.LogLevelError, err)
+	}
+	fmt.Println("Waiting for command to finish...")
+	//	log.Print(log.LogLevelInfo, stdout)
+
+	err = cmd.Wait()
+	if err != nil {
 		log.Print(log.LogLevelError, err)
 	}
 }
@@ -71,42 +104,43 @@ func ParsingMail(data string) (string, string) {
 func CheckRegExp(data string) {
 	subject, body := ParsingMail(data)
 	for i := 0; i < len(c.Rules); i++ {
-		log.Print(log.LogLevelTrace, "Processing rule: ", i+1)
-		ruleIsTrue := false
+		fmt.Println("Processing rule: ", i+1)
+		ruleIsTrueForBody := true
+		ruleIsTrueForSubject := true
 		if c.Rules[i].Body != "" {
-			log.Print(log.LogLevelTrace, "looking for...", c.Rules[i].Body)
+			log.Print(log.LogLevelTrace, "looking for in body...", c.Rules[i].Body)
 			re := regexp.MustCompile(c.Rules[i].Body)
-			ruleIsTrue = re.Match([]byte(body))
-			log.Print(log.LogLevelTrace, "result=", ruleIsTrue)
+			ruleIsTrueForBody = re.Match([]byte(body))
+
+			//log.Print(log.LogLevelTrace, "result=", ruleIsTrueForBody)
 		}
 		if c.Rules[i].Subject != "" {
-			log.Print(log.LogLevelTrace, "looking for...", c.Rules[i].Subject)
+			log.Print(log.LogLevelTrace, "looking for in subject...", c.Rules[i].Subject)
 			re := regexp.MustCompile(c.Rules[i].Subject)
-			ruleIsTrue = ruleIsTrue && re.Match([]byte(subject))
-			log.Print(log.LogLevelTrace, "result=", ruleIsTrue)
-		}
-		if ruleIsTrue {
+			ruleIsTrueForSubject = re.Match([]byte(subject))
 
-			log.Print(log.LogLevelTrace, "running...", c.Rules[i].Action)
+			//log.Print(log.LogLevelTrace, "result=", ruleIsTrueForSubject)
+		}
+		if ruleIsTrueForBody && ruleIsTrueForSubject {
+			fmt.Println("running...", c.Rules[i].Action)
+			Action(c.Rules[i].Action)
+
 		}
 
 		//		log.Print(log.LogLevelTrace, "subject=", subject, "body=", body)
 	}
 }
 
-func ReciveMail() {
+func ReciveMail() error {
 	err := pop3.ReceiveMail(c.Address, c.User, c.Pass,
 		func(number int, uid, data string, err error) (bool, error) {
-			log.Print(log.LogLevelTrace, number, uid)
+			fmt.Println("getting mail...", number, uid)
 
-			log.Print(log.LogLevelTrace, "getting mail...")
-			WriteToFile(TestFileName, data)
+			//	WriteToFile(TestFileName, data)
 			CheckRegExp(data)
 			return false, nil
 		})
-	if err != nil {
-		log.Print(log.LogLevelError, err)
-	}
+	return err
 }
 
 func (c *Cfg) load() error {
