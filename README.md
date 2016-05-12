@@ -5,28 +5,27 @@ You can define rules for parsing mail, if any rules is matched then will be star
 
 Config file for example:
 
-	'{
-	"Address":"pop3_server_address:110",
-	"User":"autostart",
-	"Pass":"qwerty",
-	"Rules":[
-		{
-		"Subject":".*",
-		"Action":"ls"
-		},
-		
-		{
-		"Subject":"shutdown",
-		"Action":"shutdown -r now"
-		},
-		{
-		"Body":"text",
-		"Subject":"exe",
-		"Action":"ls -l .exe"
-		}
+	{
+		"Address":"pop3_server_address:110",
+		"User":"autostart",
+		"Pass":"qwerty",
+		"Rules":[
+			{
+			"Subject":".*",
+			"Action":"ls"
+			},
+			{
+			Subject":"shutdown",
+			Action":"shutdown -r now"
+			},
+			{
+			Body":"text",
+			Subject":"exe",
+			Action":"ls -l .exe"
+			}
 		]
 
-	}'
+	}
 
 * Address, User and Pass define parameters for pop3 server;
 * Subject and Body - regexp expression (https://en.wikipedia.org/wiki/Regular_expression);
