@@ -3,10 +3,12 @@
 	"User":"shutdown all servers/Tula/Enterprise",
 	"Pass":"qwe8Vcx",
 	"Rules":[
-		{"Subject":".*",
+		{"Subject":"(.*)",
 		"Action":"run something1"},
-		{"Subject":"?*",
-		"Action":"run something2"}
+		{"Subject":"oooo",
+		"Action":"run something2"},
+		{"Body":".*",
+		"Action":"run something3"}
 		]
 
 }

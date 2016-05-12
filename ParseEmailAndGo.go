@@ -28,6 +28,7 @@ type Cfg struct {
 type Rule struct {
 	Action  string
 	Subject string
+	Body    string
 }
 
 func main() {
@@ -69,7 +70,28 @@ func ParsingMail(data string) (string, string) {
 
 func CheckRegExp(data string) {
 	subject, body := ParsingMail(data)
-	log.Print(log.LogLevelTrace, "subject=", subject, "body=", body)
+	for i := 0; i < len(c.Rules); i++ {
+		log.Print(log.LogLevelTrace, "Processing rule: ", i+1)
+		ruleIsTrue := false
+		if c.Rules[i].Body != "" {
+			log.Print(log.LogLevelTrace, "looking for...", c.Rules[i].Body)
+			re := regexp.MustCompile(c.Rules[i].Body)
+			ruleIsTrue = re.Match([]byte(body))
+			log.Print(log.LogLevelTrace, "result=", ruleIsTrue)
+		}
+		if c.Rules[i].Subject != "" {
+			log.Print(log.LogLevelTrace, "looking for...", c.Rules[i].Subject)
+			re := regexp.MustCompile(c.Rules[i].Subject)
+			ruleIsTrue = ruleIsTrue && re.Match([]byte(subject))
+			log.Print(log.LogLevelTrace, "result=", ruleIsTrue)
+		}
+		if ruleIsTrue {
+
+			log.Print(log.LogLevelTrace, "running...", c.Rules[i].Action)
+		}
+
+		//		log.Print(log.LogLevelTrace, "subject=", subject, "body=", body)
+	}
 }
 
 func ReciveMail() {
